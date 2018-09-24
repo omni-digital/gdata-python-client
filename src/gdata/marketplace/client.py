@@ -26,7 +26,7 @@ __author__ = 'Alexandre Vivien <alex@simplecode.fr>'
 
 import gdata.marketplace.data
 import gdata.client
-import urllib.request, urllib.parse,
+import urllib.parse,
 
 
 # Feed URI template.  This must end with a /

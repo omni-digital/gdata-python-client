@@ -1,5 +1,4 @@
 import cgi
-import urllib.parse
 import time
 import random
 import urllib.parse

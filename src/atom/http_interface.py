@@ -33,10 +33,7 @@
 __author__ = 'api.jscudder (Jeff Scudder)'
 
 
-try:
-    from io import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
 
 
 USER_AGENT = '%s GData-Python/2.0.18'

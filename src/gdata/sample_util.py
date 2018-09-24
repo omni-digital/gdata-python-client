@@ -21,7 +21,6 @@
 
 import sys
 import getpass
-import urllib.parse
 import gdata.gauth
 
 __author__ = 'j.s@google.com (Jeff Scudder)'
