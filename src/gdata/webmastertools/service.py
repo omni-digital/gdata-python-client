@@ -23,7 +23,7 @@ Google Webmaster Tools operations.
 
 __author__ = 'livibetter (Yu-Jie Lin)'
 
-import urllib
+import urllib.parse
 import gdata
 import atom.service
 import gdata.service
@@ -88,11 +88,11 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True, converter=None):
     """Adds a site to Google Webmaster Tools.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add.
       uri: str (optional) URI to add a site.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -108,7 +108,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
     site_entry = webmastertools.SitesEntry()
     site_entry.content = atom.Content(src=site_uri)
     response = self.Post(site_entry, uri,
-        url_params=url_params, 
+        url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
       return webmastertools.SitesEntryFromString(response.ToString())
@@ -118,12 +118,12 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True):
     """Removes a site from Google Webmaster Tools.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to remove.
       uri: str (optional) A URI template to send DELETE request.
            Default SITE_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
 
@@ -132,21 +132,21 @@ class GWebmasterToolsService(gdata.service.GDataService):
     """
 
     return self.Delete(
-        uri % urllib.quote_plus(site_uri),
+        uri % urllib.parse.quote_plus(site_uri),
         url_params=url_params, escape_params=escape_params)
 
   def VerifySite(self, site_uri, verification_method, uri=SITE_TEMPLATE,
       url_params=None, escape_params=True, converter=None):
     """Requests a verification of a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       verification_method: str The method to verify a site. Valid values are
                            'htmlpage', and 'metatag'.
       uri: str (optional) URI template to update a site.
            Default SITE_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -169,7 +169,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
         )
     response = self.Put(
         site_entry,
-        uri % urllib.quote_plus(site_uri),
+        uri % urllib.parse.quote_plus(site_uri),
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -181,14 +181,14 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True, converter=None):
     """Updates geolocation setting of a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       geolocation: str The geographic location. Valid values are listed in
                    http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       uri: str (optional) URI template to update a site.
            Default SITE_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -210,7 +210,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
         )
     response = self.Put(
         site_entry,
-        uri % urllib.quote_plus(site_uri),
+        uri % urllib.parse.quote_plus(site_uri),
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -221,14 +221,14 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True, converter=None):
     """Updates crawl rate setting of a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       crawl_rate: str The crawl rate for a site. Valid values are 'slower',
                   'normal', and 'faster'.
       uri: str (optional) URI template to update a site.
            Default SITE_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -250,7 +250,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
         )
     response = self.Put(
         site_entry,
-        uri % urllib.quote_plus(site_uri),
+        uri % urllib.parse.quote_plus(site_uri),
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -264,14 +264,14 @@ class GWebmasterToolsService(gdata.service.GDataService):
     Note that if using 'preferwww', will also need www.example.com in account to
     take effect.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       preferred_domain: str The preferred domain for a site. Valid values are 'none',
                         'preferwww', and 'prefernowww'.
       uri: str (optional) URI template to update a site.
            Default SITE_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -293,7 +293,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
         )
     response = self.Put(
         site_entry,
-        uri % urllib.quote_plus(site_uri),
+        uri % urllib.parse.quote_plus(site_uri),
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -304,14 +304,14 @@ class GWebmasterToolsService(gdata.service.GDataService):
       uri=SITE_TEMPLATE, url_params=None, escape_params=True, converter=None):
     """Updates enhanced image search setting of a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       enhanced_image_search: str The enhanced image search setting for a site.
                              Valid values are 'true', and 'false'.
       uri: str (optional) URI template to update a site.
            Default SITE_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -334,7 +334,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
         )
     response = self.Put(
         site_entry,
-        uri % urllib.quote_plus(site_uri),
+        uri % urllib.parse.quote_plus(site_uri),
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -344,7 +344,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
   def GetSitemapsFeed(self, site_uri, uri=SITEMAPS_FEED_TEMPLATE,
       converter=webmastertools.SitemapsFeedFromString):
     """Gets sitemaps feed of a site.
-    
+
     Args:
       site_uri: str (optional) URI of which site to retrieve its sitemaps feed.
       uri: str (optional) URI to retrieve sites feed.
@@ -357,7 +357,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
       If converter is defined, the results of running converter on the server's
       response. Otherwise, it will be a SitemapsFeed object.
     """
-    return self.Get(uri % {'site_id': urllib.quote_plus(site_uri)},
+    return self.Get(uri % {'site_id': urllib.parse.quote_plus(site_uri)},
         converter=converter)
 
   def AddSitemap(self, site_uri, sitemap_uri, sitemap_type='WEB',
@@ -365,14 +365,14 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True, converter=None):
     """Adds a regular sitemap to a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       sitemap_uri: str URI of sitemap to add to a site.
       sitemap_type: str Type of added sitemap. Valid types: WEB, VIDEO, or CODE.
       uri: str (optional) URI template to add a sitemap.
            Default SITEMAP_FEED_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -393,7 +393,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
         sitemap_type=webmastertools.SitemapType(text=sitemap_type))
     response = self.Post(
         sitemap_entry,
-        uri % {'site_id': urllib.quote_plus(site_uri)},
+        uri % {'site_id': urllib.parse.quote_plus(site_uri)},
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -405,7 +405,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True, converter=None):
     """Adds a mobile sitemap to a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       sitemap_uri: str URI of sitemap to add to a site.
       sitemap_mobile_markup_language: str Format of added sitemap. Valid types:
@@ -413,7 +413,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
       uri: str (optional) URI template to add a sitemap.
            Default SITEMAP_FEED_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -434,10 +434,10 @@ class GWebmasterToolsService(gdata.service.GDataService):
         sitemap_mobile_markup_language=\
             webmastertools.SitemapMobileMarkupLanguage(
                 text=sitemap_mobile_markup_language))
-    print sitemap_entry
+    print(sitemap_entry)
     response = self.Post(
         sitemap_entry,
-        uri % {'site_id': urllib.quote_plus(site_uri)},
+        uri % {'site_id': urllib.parse.quote_plus(site_uri)},
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -449,7 +449,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True, converter=None):
     """Adds a news sitemap to a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to add sitemap for.
       sitemap_uri: str URI of sitemap to add to a site.
       sitemap_news_publication_label: str, list of str Publication Labels for
@@ -457,7 +457,7 @@ class GWebmasterToolsService(gdata.service.GDataService):
       uri: str (optional) URI template to add a sitemap.
            Default SITEMAP_FEED_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
       converter: func (optional) Function which is executed on the server's
@@ -482,10 +482,10 @@ class GWebmasterToolsService(gdata.service.GDataService):
     for label in sitemap_news_publication_label:
       sitemap_entry.sitemap_news_publication_label.append(
           webmastertools.SitemapNewsPublicationLabel(text=label))
-    print sitemap_entry
+    print(sitemap_entry)
     response = self.Post(
         sitemap_entry,
-        uri % {'site_id': urllib.quote_plus(site_uri)},
+        uri % {'site_id': urllib.parse.quote_plus(site_uri)},
         url_params=url_params,
         escape_params=escape_params, converter=converter)
     if not converter and isinstance(response, atom.Entry):
@@ -496,13 +496,13 @@ class GWebmasterToolsService(gdata.service.GDataService):
       url_params=None, escape_params=True):
     """Removes a sitemap from a site.
 
-    Args: 
+    Args:
       site_uri: str URI of which site to remove a sitemap from.
       sitemap_uri: str URI of sitemap to remove from a site.
       uri: str (optional) A URI template to send DELETE request.
            Default SITEMAP_TEMPLATE.
       url_params: dict (optional) Additional URL parameters to be included
-                  in the insertion request. 
+                  in the insertion request.
       escape_params: boolean (optional) If true, the url_parameters will be
                      escaped before they are included in the request.
 
@@ -511,6 +511,6 @@ class GWebmasterToolsService(gdata.service.GDataService):
     """
 
     return self.Delete(
-        uri % {'site_id': urllib.quote_plus(site_uri),
-            'sitemap_id': urllib.quote_plus(sitemap_uri)},
+        uri % {'site_id': urllib.parse.quote_plus(site_uri),
+            'sitemap_id': urllib.parse.quote_plus(sitemap_uri)},
         url_params=url_params, escape_params=escape_params)

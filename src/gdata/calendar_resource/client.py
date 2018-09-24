@@ -26,13 +26,14 @@ domain.
 __author__ = 'Vic Fryzel <vf@google.com>'
 
 
+import urllib.parse
+
 import gdata.calendar_resource.data
 import gdata.client
-import urllib
 
 
 # Feed URI template.  This must end with a /
-# The strings in this template are eventually replaced with the API version 
+# The strings in this template are eventually replaced with the API version
 # and Google Apps domain name, respectively.
 RESOURCE_FEED_TEMPLATE = '/a/feeds/calendar/resource/%s/%s/'
 
@@ -56,7 +57,7 @@ class CalendarResourceClient(gdata.client.GDClient):
 
     Args:
       domain: string The Google Apps domain with Calendar Resources.
-      auth_token: (optional) gdata.gauth.ClientLoginToken, AuthSubToken, or 
+      auth_token: (optional) gdata.gauth.ClientLoginToken, AuthSubToken, or
           OAuthToken which authorizes this client to edit the calendar resource
           data.
       kwargs: The other parameters to pass to the gdata.client.GDClient
@@ -86,7 +87,7 @@ class CalendarResourceClient(gdata.client.GDClient):
     if resource_id:
       uri += resource_id
     if params:
-      uri += '?' + urllib.urlencode(params)
+      uri += '?' + urllib.parse.urlencode(params)
     return uri
 
   MakeResourceFeedUri = make_resource_feed_uri
@@ -110,7 +111,7 @@ class CalendarResourceClient(gdata.client.GDClient):
         **kwargs)
 
   GetResourceFeed = get_resource_feed
-  
+
   def get_resource(self, uri=None, resource_id=None, **kwargs):
     """Fetches a single calendar resource by resource ID.
 
@@ -120,7 +121,7 @@ class CalendarResourceClient(gdata.client.GDClient):
       kwargs: The other parameters to pass to gdata.client.GDClient.get_entry().
 
     Returns:
-      A Resource object representing the calendar resource with the given 
+      A Resource object representing the calendar resource with the given
       base URI and resource ID.
     """
 
@@ -155,7 +156,7 @@ class CalendarResourceClient(gdata.client.GDClient):
     return self.post(new_resource, self.MakeResourceFeedUri(), **kwargs)
 
   CreateResource = create_resource
-  
+
   def update_resource(self, resource_id, resource_common_name=None,
                       resource_description=None, resource_type=None, **kwargs):
     """Updates the calendar resource with the given resource ID.

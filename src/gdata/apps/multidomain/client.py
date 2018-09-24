@@ -26,7 +26,8 @@ domains.
 __author__ = 'Claudio Cherubino <ccherubino@google.com>'
 
 
-import urllib
+import urllib.parse
+
 import gdata.apps.multidomain.data
 import gdata.client
 
@@ -97,7 +98,7 @@ class MultiDomainProvisioningClient(gdata.client.GDClient):
     if email:
       uri += '/' + email
     if params:
-      uri += '?' + urllib.urlencode(params)
+      uri += '?' + urllib.parse.urlencode(params)
     return uri
 
   MakeMultidomainProvisioningUri = make_multidomain_provisioning_uri
@@ -165,7 +166,7 @@ class MultiDomainProvisioningClient(gdata.client.GDClient):
         **kwargs)
     next_link = feed.GetNextLink()
     while next_link is not None:
-      uri = next_link.href                    
+      uri = next_link.href
       temp_feed = self.GetFeed(
           uri, desired_class=desired_class, **kwargs)
       feed.entry = feed.entry + temp_feed.entry
@@ -327,7 +328,7 @@ class MultiDomainProvisioningClient(gdata.client.GDClient):
         **kwargs)
 
   RetrieveAlias = retrieve_alias
-  
+
   def retrieve_all_user_aliases(self, user_email, **kwargs):
     """Retrieves all aliases for a given user in the domain.
 
@@ -345,7 +346,7 @@ class MultiDomainProvisioningClient(gdata.client.GDClient):
         uri,
         desired_class=gdata.apps.multidomain.data.AliasFeed,
         **kwargs)
-    
+
   RetrieveAllUserAliases = retrieve_all_user_aliases
 
   def create_alias(self, user_email, alias_email, **kwargs):

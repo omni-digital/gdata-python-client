@@ -18,8 +18,12 @@
 __author__ = 'api.jscudder (Jeff Scudder)'
 
 
-import urlparse
-import urllib
+try:
+    import urllib.parse
+except ImportError:
+    import urllib.parse as urlparse
+
+import urllib.request, urllib.parse, urllib.error
 
 
 DEFAULT_PROTOCOL = 'http'
@@ -28,11 +32,11 @@ DEFAULT_PORT = 80
 
 def parse_url(url_string):
   """Creates a Url object which corresponds to the URL string.
-  
+
   This method can accept partial URLs, but it will leave missing
   members of the Url unset.
   """
-  parts = urlparse.urlparse(url_string)
+  parts = urllib.parse.urlparse(url_string)
   url = Url()
   if parts[0]:
     url.protocol = parts[0]
@@ -49,21 +53,21 @@ def parse_url(url_string):
     for pair in param_pairs:
       pair_parts = pair.split('=')
       if len(pair_parts) > 1:
-        url.params[urllib.unquote_plus(pair_parts[0])] = (
-            urllib.unquote_plus(pair_parts[1]))
+        url.params[urllib.parse.unquote_plus(pair_parts[0])] = (
+            urllib.parse.unquote_plus(pair_parts[1]))
       elif len(pair_parts) == 1:
-        url.params[urllib.unquote_plus(pair_parts[0])] = None
+        url.params[urllib.parse.unquote_plus(pair_parts[0])] = None
   return url
-   
+
 class Url(object):
   """Represents a URL and implements comparison logic.
-  
+
   URL strings which are not identical can still be equivalent, so this object
-  provides a better interface for comparing and manipulating URLs than 
+  provides a better interface for comparing and manipulating URLs than
   strings. URL parameters are represented as a dictionary of strings, and
   defaults are used for the protocol (http) and port (80) if not provided.
   """
-  def __init__(self, protocol=None, host=None, port=None, path=None, 
+  def __init__(self, protocol=None, host=None, port=None, path=None,
                params=None):
     self.protocol = protocol
     self.host = host
@@ -84,13 +88,13 @@ class Url(object):
       url_parts[2] = self.path
     if self.params:
       url_parts[4] = self.get_param_string()
-    return urlparse.urlunparse(url_parts)
+    return urllib.parse.urlunparse(url_parts)
 
   def get_param_string(self):
     param_pairs = []
-    for key, value in self.params.iteritems():
-      param_pairs.append('='.join((urllib.quote_plus(key), 
-          urllib.quote_plus(str(value)))))
+    for key, value in self.params.items():
+      param_pairs.append('='.join((urllib.parse.quote_plus(key),
+          urllib.parse.quote_plus(str(value)))))
     return '&'.join(param_pairs)
 
   def get_request_uri(self):
@@ -136,4 +140,4 @@ class Url(object):
 
   def __str__(self):
     return self.to_string()
-    
+

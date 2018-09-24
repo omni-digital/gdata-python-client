@@ -28,7 +28,8 @@
 __author__ = 'alainv (Alain Vongsouvanh)'
 
 
-import urllib
+import urllib.parse
+
 import gdata.client
 import gdata.calendar.data
 import atom.data
