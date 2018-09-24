@@ -27,7 +27,8 @@ and update and retrieve users in organization units.
 __author__ = 'Gunjan Sharma <gunjansharma@google.com>'
 
 
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
+
 import gdata.apps.organization.data
 import gdata.client
 

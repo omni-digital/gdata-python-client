@@ -29,10 +29,11 @@ __author__ = ('api.jfisher (Jeff Fisher), '
               'e.bidelman (Eric Bidelman)')
 
 import re
+import urllib.parse
+
 import atom
 import gdata.service
 import gdata.docs
-import urllib.request, urllib.parse, urllib.error
 
 # XML Namespaces used in Google Documents entities.
 DATA_KIND_SCHEME = gdata.GDATA_NAMESPACE + '#kind'
@@ -443,7 +444,7 @@ class DocsService(gdata.service.GDataService):
   def UploadSpreadsheet(self, media_source, title, folder_or_uri=None):
     """Uploads a spreadsheet inside of a MediaSource object to the Document
        List feed with the given title.
-       
+
     This method is deprecated, use Upload instead.
 
     Args:
@@ -471,7 +472,7 @@ class DocsService(gdata.service.GDataService):
   def UploadDocument(self, media_source, title, folder_or_uri=None):
     """Uploads a document inside of a MediaSource object to the Document List
        feed with the given title.
-       
+
     This method is deprecated, use Upload instead.
 
     Args:

@@ -49,8 +49,8 @@ ae_save
 import datetime
 import time
 import random
-import urllib.request, urllib.parse, urllib.error
 import urllib.parse
+
 import atom.http_core
 
 try:

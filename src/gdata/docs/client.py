@@ -21,7 +21,8 @@ __author__ = 'vicfryzel@google.com (Vic Fryzel)'
 import copy
 import mimetypes
 import re
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
+
 import atom.data
 import atom.http_core
 import gdata.client

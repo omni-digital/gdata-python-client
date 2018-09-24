@@ -27,7 +27,8 @@
 __author__ = 'api.vli (Vivian Li)'
 
 
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
+
 import gdata
 import atom.service
 import gdata.service

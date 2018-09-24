@@ -21,7 +21,7 @@
 __author__ = 'afshar (Ali Afshar), dhermes (Daniel Hermes)'
 
 
-import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 
 import atom.data
 import gdata.client

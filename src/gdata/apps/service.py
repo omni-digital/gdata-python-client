@@ -25,7 +25,9 @@ except ImportError:
       from xml.etree import ElementTree
     except ImportError:
       from elementtree import ElementTree
-import urllib.request, urllib.parse, urllib.error
+
+import urllib.parse
+
 import gdata
 import atom.service
 import gdata.service
@@ -104,7 +106,7 @@ class AppsService(gdata.service.GDataService):
     self.domain = domain
 
   def _baseURL(self):
-    return "/a/feeds/%s" % self.domain 
+    return "/a/feeds/%s" % self.domain
 
   def AddAllElementsFromAllPages(self, link_finder, func):
     """retrieve all pages and add all elements"""
@@ -129,7 +131,7 @@ class AppsService(gdata.service.GDataService):
             uri, num_retries=num_retries, delay=delay, backoff=backoff)))
     except gdata.service.RequestError as e:
       raise AppsForYourDomainException(e.args[0])
-    
+
   def GetGeneratorForAllEmailLists(
     self, num_retries=gdata.service.DEFAULT_NUM_RETRIES,
     delay=gdata.service.DEFAULT_DELAY, backoff=gdata.service.DEFAULT_BACKOFF):
@@ -168,14 +170,14 @@ class AppsService(gdata.service.GDataService):
       ret = gdata.apps.EmailListFeedFromString(str(self.Get(uri)))
     except gdata.service.RequestError as e:
       raise AppsForYourDomainException(e.args[0])
-    
+
     # pagination
     return self.AddAllElementsFromAllPages(
       ret, gdata.apps.EmailListFeedFromString)
 
   def RemoveRecipientFromEmailList(self, recipient, list_name):
     """Remove recipient from email list."""
-    
+
     uri = "%s/emailList/%s/%s/recipient/%s" % (
       self._baseURL(), API_VER, list_name, recipient)
     try:
@@ -250,7 +252,7 @@ class AppsService(gdata.service.GDataService):
     uri = "%s/emailList/%s" % (self._baseURL(), API_VER)
     email_list_entry = gdata.apps.EmailListEntry()
     email_list_entry.email_list = gdata.apps.EmailList(name=list_name)
-    try: 
+    try:
       return gdata.apps.EmailListEntryFromString(
         str(self.Post(email_list_entry, uri)))
     except gdata.service.RequestError as e:
@@ -350,7 +352,7 @@ class AppsService(gdata.service.GDataService):
     nickname_entry.login = gdata.apps.Login(user_name=user_name)
     nickname_entry.nickname = gdata.apps.Nickname(name=nickname)
 
-    try: 
+    try:
       return gdata.apps.NicknameEntryFromString(
         str(self.Post(nickname_entry, uri)))
     except gdata.service.RequestError as e:
@@ -369,13 +371,13 @@ class AppsService(gdata.service.GDataService):
     """Update a user account."""
 
     uri = "%s/user/%s/%s" % (self._baseURL(), API_VER, user_name)
-    try: 
+    try:
       return gdata.apps.UserEntryFromString(str(self.Put(user_entry, uri)))
     except gdata.service.RequestError as e:
       raise AppsForYourDomainException(e.args[0])
 
   def CreateUser(self, user_name, family_name, given_name, password,
-                 suspended='false', quota_limit=None, 
+                 suspended='false', quota_limit=None,
                  password_hash_function=None,
                  change_password=None):
     """Create a user account. """
@@ -391,7 +393,7 @@ class AppsService(gdata.service.GDataService):
     if quota_limit is not None:
       user_entry.quota = gdata.apps.Quota(limit=str(quota_limit))
 
-    try: 
+    try:
       return gdata.apps.UserEntryFromString(str(self.Post(user_entry, uri)))
     except gdata.service.RequestError as e:
       raise AppsForYourDomainException(e.args[0])
